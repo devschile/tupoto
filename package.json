@@ -1,0 +1,47 @@
+{
+  "name": "shortener-server",
+  "version": "0.0.0",
+  "description": "URL shortener server",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "lint": "standard src/**/*.js",
+    "release:major": "changelog -M && git add CHANGELOG.md && git commit -m 'updated CHANGELOG.md' && npm version major && git push origin && git push origin --tags && npm publish",
+    "release:minor": "changelog -m && git add CHANGELOG.md && git commit -m 'updated CHANGELOG.md' && npm version minor && git push origin && git push origin --tags && npm publish",
+    "release:patch": "changelog -p && git add CHANGELOG.md && git commit -m 'updated CHANGELOG.md' && npm version patch && git push origin && git push origin --tags && npm publish"
+  },
+  "engines": {
+    "node": ">=7"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lgaticaq/shortener-server.git"
+  },
+  "keywords": [
+    "shorten",
+    "devschile"
+  ],
+  "author": "Leonardo Gatica <lgatica@protonmail.com> (https://about.me/lgatica)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lgaticaq/shortener-server/issues"
+  },
+  "homepage": "https://github.com/lgaticaq/shortener-server#readme",
+  "dependencies": {
+    "config-dburi": "^0.0.2",
+    "ioredis": "^2.5.0",
+    "raven": "^1.2.1",
+    "rx": "^4.1.0",
+    "shortid": "^2.2.8",
+    "winston": "^2.3.1"
+  },
+  "devDependencies": {
+    "generate-changelog": "^1.1.0",
+    "standard": "^10.0.2"
+  },
+  "standard": {
+    "env": {
+      "mocha": true
+    }
+  }
+}
