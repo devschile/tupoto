@@ -1,116 +1,125 @@
 'use strict'
 
+const path = require('path')
 const http = require('http')
-const Rx = require('rx')
+const os = require('os')
+
+const bodyParser = require('body-parser')
+const compress = require('compression')
+const express = require('express')
+const morgan = require('morgan')
+const Raven = require('raven')
 const shortid = require('shortid')
-const dburi = require('config-dburi')
 const Redis = require('ioredis')
-const pkg = require('../package.json')
 
-const redis = new Redis(dburi.redis())
-const subject = new Rx.Subject()
-const port = process.env.PORT || 3000
-const welcome = process.env.WELCOME || pkg.description
-const expire = process.env.EXPIRE || 60 * 24 * 60 * 60 // expire in 60 days
+const config = require('./config')
 
-redis.on('error', err => subject.onNext({type: 'error', error: err}))
+const redis = new Redis(config.redis)
 
+// Instancia de express
+const app = express()
+const server = http.Server(app)
+
+process.on('uncaughtException', err => {
+  console.log(err)
+  Raven.captureException(err)
+  process.exit(1)
+})
+
+// Cliente de sentry para notificar errores de produccion
+const ravenOptions = {
+  release: config.version,
+  environment: process.env.NODE_ENV || 'development',
+  server_name: process.env.HOSTNAME || os.hostname(),
+  captureUnhandledRejections: true,
+  autoBreadcrumbs: true
+}
+Raven.config(process.env.SENTRY_TOKEN, ravenOptions).install()
+app.use(Raven.requestHandler())
+
+// Compresion
+app.use(compress({
+  filter: (req, res) => {
+    return /json|text|javascript|css/.test(res.getHeader('Content-Type'))
+  },
+  level: 9
+}))
+
+// Logger
+app.use(morgan('combined'))
+
+// Parser de peticiones POST
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({extended: true}))
+
+// Estaticos
+app.use(express.static(path.join(__dirname, '..', '..', 'build')))
+
+// Controladores
+const index = (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'public', 'index.html'))
+}
+const getOriginalUri = (req, res, next) => {
+  redis.get(req.params.id).then(uri => {
+    if (uri === null) return res.status(404)
+    res.send(uri)
+  }).catch(next)
+}
 const setId = (id, uri) => {
   redis.set(id, uri)
-  redis.expire(id, expire)
+  redis.expire(id, config.expire)
 }
-
-const shorten = (uri, custom) => {
-  if (!custom) {
+const shortenUrl = body => {
+  if (!body.custom) {
     const id = shortid.generate()
-    setId(id, uri)
+    setId(id, body.uri)
     return Promise.resolve(id)
   }
-  return redis.exists(custom).then(exist => {
+  return redis.exists(body.custom).then(exist => {
     if (exist) return null
-    setId(custom, uri)
-    return custom
+    setId(body.custom, body.uri)
+    return body.custom
   })
 }
-
-const getOriginalUri = uri => {
-  const id = uri.substr(1)
-  if (!shortid.isValid()) Promise.resolve(null)
-  return redis.get(id)
-}
-
-const getResponseTime = (req, res, digits) => {
-  if (!req._startAt || !res._startAt) {
-    return
-  }
-  // calculate diff
-  var ms = (res._startAt[0] - req._startAt[0]) * 1e3 +
-    (res._startAt[1] - req._startAt[1]) * 1e-6
-  // return truncated value
-  return ms.toFixed(digits === undefined ? 3 : digits)
-}
-
-const endRequest = (req, res, data) => {
-  subject.onNext({type: 'info', data: `${req.method} ${req.url} ${res.statusCode} - ${getResponseTime(req, res)} ms`})
-  if (data) return res.end(data)
-  res.end()
-}
-
-const server = http.createServer((req, res) => {
-  req._startAt = process.hrtime()
-  res._startAt = process.hrtime()
-  const raw = []
-  req.on('data', chunk => {
-    raw.push(chunk)
-  }).on('end', () => {
-    if (req.url === '/') {
-      if (req.method === 'GET') {
-        endRequest(req, res, welcome)
-      } else if (req.method === 'POST') {
-        try {
-          const body = JSON.parse(Buffer.concat(raw).toString())
-          shorten(body.uri, body.custom).then(id => {
-            if (id === null) {
-              res.statusCode = 409
-              endRequest(req, res)
-            } else {
-              endRequest(req, res, `${req.headers.host}/${id}`)
-            }
-          })
-        } catch (err) {
-          subject.onNext({type: 'error', error: err})
-          res.statusCode = 400
-          endRequest(req, res)
-        }
-      }
+const shorten = (req, res, next) => {
+  shortenUrl(req.body).then(id => {
+    if (id === null) {
+      res.status(409)
     } else {
-      getOriginalUri(req.url).then(uri => {
-        if (uri === null) {
-          res.statusCode = 404
-          endRequest(req, res)
-        } else {
-          endRequest(req, res, uri)
-        }
-      }).catch(err => {
-        subject.onNext({type: 'error', error: err})
-        res.statusCode = 500
-        endRequest(req, res)
-      })
+      res.send(`${req.headers.host}/${id}`)
     }
-  })
-})
+  }).catch(next)
+}
 
-server.on('clientError', (err, socket) => {
-  subject.onNext({type: 'error', error: err})
-  socket.end('HTTP/1.1 400 Bad Request\r\n\r\n')
-})
+// Rutas
+const router = new express.Router()
 
-server.listen(port, err => {
-  if (err) {
-    subject.onNext({type: 'error', error: err})
-  } else {
-    subject.onNext({type: 'ready', data: `Listen in port ${port}`})
+router.get('/', index)
+router.get('/:id', getOriginalUri)
+router.post('/', shorten)
+
+app.use('/', router)
+
+// Error logger
+app.use(Raven.errorHandler())
+app.use((err, req, res, next) => {
+  if (config.env === 'production') {
+    Raven.captureException(err, {
+      user: req.user,
+      extra: {
+        body: req.body,
+        originalUrl: req.originalUrl
+      }
+    })
   }
+  console.error(err)
+  res.status(500)
+})
+app.use((req, res) => {
+  res.status(404)
+})
+app.use((req, res, next) => {
+  redis.on('error', (err) => next(err))
 })
 
-module.exports = subject
+module.exports = server
