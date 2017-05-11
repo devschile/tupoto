@@ -53,7 +53,7 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))
 
 // Estaticos
-app.use(express.static(path.join(__dirname, '..', '..', 'build')))
+app.use(express.static(path.join(__dirname, '..', 'public')))
 
 // Controladores
 const index = (req, res) => {
