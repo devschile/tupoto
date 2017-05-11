@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+    @import "http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600";@font-face{font-family:'tupoto';src:url(./assets/font/tupoto.eot?93171914);src:url(./assets/font/tupoto.eot?93171914#iefix) format("embedded-opentype"),url(./assets/font/tupoto.woff?93171914) format("woff"),url(./assets/font/tupoto.ttf?93171914) format("truetype"),url(./assets/font/tupoto.svg?93171914#tupoto) format("svg");font-weight:400;font-style:normal}*{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}body{background:#3d3d3d;font-family:'Source Sans Pro',sans-serif;font-size:16px}.title{margin:2em 0 0;font-weight:400;color:#ededeb;text-align:center;font-size:2em}input{width:100%;padding:0 .6em;height:2em;line-height:2em;color:#ededeb;font-size:1.4em;font-family:inherit;outline:0}button{position:absolute;top:0;right:0;width:4em;height:4em;border:0;cursor:pointer;background-color:#8F62C8;color:#fff;z-index:99}button:before{font-size:20px}.input_box{padding-bottom:30px;z-index:30;font-size:22px;display:table;overflow:hidden;position:relative}.box:before{transition:.3s;height:0;background-color:#fff;width:100%;z-index:1000;position:absolute;display:block;content:""}.box input{z-index:10;position:relative;font-size:22px;background-color:transparent;border:none;border-bottom:2px solid #fff;padding:5px 11px}.box label{width:100%;padding:0 .6em;height:2em;line-height:2em;color:#fff;transition:.3s;position:absolute;left:0;top:0;font-size:1.4em;z-index:10}.box input:focus ~ label,.-movelabel{left:0!important;opacity:.7;top:43px!important;font-size:76%!important;color:#c3c3c3!important}[class^="icon-"]:before,[class*=" icon-"]:before{font-family:"tupoto";font-style:normal;font-weight:400;speak:none;display:inline-block;text-decoration:inherit;width:1em;margin-right:.2em;text-align:center;font-variant:normal;text-transform:none;line-height:1em;margin-left:.2em;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}.icon-cog:before{content:'\e800'}.icon-clipboard:before{content:'\e801'}.bg_input:before{height:55%!important}.box{position:relative;width:60%;margin:2em auto}.box-foot{font-size:.8em;text-align:center;border-top:1px solid #000;margin-top:10em;padding-top:2em;color:#ccc}.box-foot a{color:#8F62C8}
+  </style>
+  <script src="//unpkg.com/vue/dist/vue.js"></script>
+</head>
+<body>
+
+  <div id="app">
+
+    <div class="wrapper">
+
+      <header class="box-title">
+        <h1 class="title">{{ title }}</h1>
+      </header>
+      <div class="box box-input">
+        <input id="input_url" type="text" />
+        <label for="input_url">{{ longURL }}</label>
+        <button type="submit" class="createlink icon icon-cog"></button>
+      </div>
+      <div class="box box-output">
+        <input id="output_url" type="text" />
+        <label for="output_url">{{ shortURL }}</label>
+        <button class="copytext icon icon-clipboard"></button>
+      </div>
+    </div>
+    <footer class="box-foot">
+      <p>©2017 <a href="#">DevsChile</a>. <a href="#">GitHub</a>. Licence: <a href="#">MIT</a>.</p>
+    </footer>
+  </div>
+
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        title: 'tupo.to url shortner',
+        longURL: 'URL larga',
+        shortURL: 'URL corta'
+      },
+      methods: {
+      }
+    });
+    // custom behaviour
+    var input = document.querySelectorAll('.box input');
+    [].forEach.call(input, function(e) {
+      e.addEventListener('blur', function(e){
+        var siblings = [].filter.call(this.parentElement.children, function(sibling) {
+          return sibling != this && sibling.matches('label');
+        });
+        if (this.value !== "") {
+          [].forEach.call(siblings, function(e) {
+            e.classList.add('-movelabel');
+          });
+        } else {
+          [].forEach.call(siblings, function(e) {
+            e.classList.remove('-movelabel');
+          });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
