@@ -62,7 +62,7 @@ const index = (req, res) => {
 const getOriginalUri = (req, res, next) => {
   redis.get(req.params.id).then(uri => {
     if (uri === null) return res.status(404)
-    res.send(uri)
+    res.redirect(uri)
   }).catch(next)
 }
 const setId = (id, uri) => {
