@@ -1,0 +1,14 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg">
+<metadata>Copyright (C) 2017 by original authors @ fontello.com</metadata>
+<defs>
+<font id="tupoto" horiz-adv-x="1000" >
+<font-face font-family="tupoto" font-weight="400" font-stretch="normal" units-per-em="1000" ascent="850" descent="-150" />
+<missing-glyph horiz-adv-x="1000" />
+<glyph glyph-name="cog" unicode="&#xe800;" d="M911 295l-133-56q-8-22-12-31l55-133-79-79-135 53q-9-4-31-12l-55-134-112 0-56 133q-11 4-33 13l-132-55-78 79 53 134q-1 3-4 9t-6 12-4 11l-131 55 0 112 131 56 14 33-54 132 78 79 133-54q22 9 33 13l55 132 112 0 56-132q14-5 31-13l133 55 80-79-54-135q6-12 12-30l133-56 0-112z m-447-111q69 0 118 48t49 118-49 119-118 50-119-50-49-119 49-118 119-48z" horiz-adv-x="928" />
+
+<glyph glyph-name="clipboard" unicode="&#xe801;" d="M678 819q65 0 110-46t46-110l0-625q0-65-46-111t-110-46l-522 0q-65 0-110 46t-46 111l0 625q0 65 46 110t110 46l522 0z m-418-104l0-52q0-21 16-37t37-16l208 0q22 0 37 16t15 37l0 52-313 0z m469-677l0 625q0 21-15 37t-36 15l-53 0 0-52q0-43-30-73t-74-31l-208 0q-43 0-74 31t-30 73l0 52-53 0q-21 0-37-15t-15-37l0-625q0-21 15-37t37-16l522 0q21 0 36 16t15 37z m-104 52l-416 0q-26 0-26 25 0 12 7 19t19 8l416 0q11 0 19-8t7-19q0-25-26-25z m0 157l-416 0q-11 0-19 7t-7 19q0 25 26 25l416 0q26 0 26-25 0-11-7-19t-19-7z m0 156l-416 0q-26 0-26 25 0 11 7 19t19 7l416 0q11 0 19-7t7-19q0-25-26-25z" horiz-adv-x="834" />
+</font>
+</defs>
+</svg>
