@@ -9,11 +9,12 @@ const compress = require('compression')
 const express = require('express')
 const morgan = require('morgan')
 const Raven = require('raven')
-const shortid = require('shortid')
+const ShortUniqueId = require('short-unique-id')
 const Redis = require('ioredis')
 
 const config = require('./config')
 
+const uid = new ShortUniqueId()
 const redis = new Redis(config.redis)
 
 // Instancia de express
@@ -62,7 +63,7 @@ const index = (req, res) => {
 const getOriginalUri = (req, res, next) => {
   redis.get(req.params.id).then(uri => {
     if (uri === null) return res.status(404)
-    res.send(uri)
+    res.redirect(uri)
   }).catch(next)
 }
 const setId = (id, uri) => {
@@ -70,15 +71,14 @@ const setId = (id, uri) => {
   redis.expire(id, config.expire)
 }
 const shortenUrl = body => {
-  if (!body.custom) {
-    const id = shortid.generate()
-    setId(id, body.uri)
-    return Promise.resolve(id)
-  }
-  return redis.exists(body.custom).then(exist => {
-    if (exist) return null
-    setId(body.custom, body.uri)
-    return body.custom
+  return redis.get('uid:length').then(reply => {
+    const length = reply || config.uidLength
+    const id = body.custom || uid.randomUUID(length)
+    return redis.exists(id).then(exist => {
+      if (exist) return null
+      setId(id, body.uri)
+      return id
+    })
   })
 }
 const shorten = (req, res, next) => {

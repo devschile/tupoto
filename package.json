@@ -5,6 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "start": "node src/index.js",
+    "start:dev": "nodemon",
     "lint": "standard src/**/*.js",
     "release:major": "changelog -M && git add CHANGELOG.md && git commit -m 'updated CHANGELOG.md' && npm version major && git push origin && git push origin --tags && npm publish",
     "release:minor": "changelog -m && git add CHANGELOG.md && git commit -m 'updated CHANGELOG.md' && npm version minor && git push origin && git push origin --tags && npm publish",
@@ -28,19 +29,20 @@
   },
   "homepage": "https://github.com/lgaticaq/shortener-server#readme",
   "dependencies": {
-    "body-parser": "^1.17.1",
+    "body-parser": "^1.17.2",
     "compression": "^1.6.2",
     "config-dburi": "^0.0.2",
     "dotenv": "^4.0.0",
-    "express": "^4.15.2",
-    "ioredis": "^2.5.0",
-    "morgan": "^1.8.1",
-    "raven": "^1.2.1",
-    "shortid": "^2.2.8",
+    "express": "^4.15.3",
+    "ioredis": "^3.0.0",
+    "morgan": "^1.8.2",
+    "raven": "^2.0.2",
+    "short-unique-id": "^1.1.0",
     "winston": "^2.3.1"
   },
   "devDependencies": {
     "generate-changelog": "^1.1.0",
+    "nodemon": "^1.11.0",
     "standard": "^10.0.2"
   },
   "standard": {

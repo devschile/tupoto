@@ -12,5 +12,6 @@ module.exports = {
   redis: dburi.redis(),
   port: process.env.PORT || 3000,
   expire: process.env.EXPIRE || 60 * 24 * 60 * 60, // expire in 60 days
-  version: pkg.version
+  version: pkg.version,
+  uidLength: process.env.UID_LENGTH || 4
 }
