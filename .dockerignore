@@ -1,0 +1,6 @@
+node_modules
+*.log
+.*
+*.md
+LICENSE
+nodemon.json
