@@ -1,6 +1,6 @@
 {
   "name": "shortener-server",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "URL shortener server",
   "main": "src/index.js",
   "scripts": {
