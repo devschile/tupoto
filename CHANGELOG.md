@@ -1,3 +1,15 @@
+#### 0.0.2 (2017-07-27)
+
+##### New Features
+
+* **travis:** add travis. close #5 ([056b59a0](https://github.com/lgaticaq/shortener-server/commit/056b59a05effe613290981a6651591cfa63d9b84))
+* **meta:** add meta ogp. close #3 ([8aec35e4](https://github.com/lgaticaq/shortener-server/commit/8aec35e40bb1c30f52e32ed2ed7bc1b3d3dc2b12))
+* **docker:** add docker image ([a785bf66](https://github.com/lgaticaq/shortener-server/commit/a785bf66791d079cac94a0a1d34910ee63ac7cfa))
+
+##### Bug Fixes
+
+* **package:** remove npm publish ([15d91799](https://github.com/lgaticaq/shortener-server/commit/15d917995bbde50410fe125f291f0e474a43d7cb))
+
 #### 0.0.1 (2017-07-27)
 
 ##### Chores
