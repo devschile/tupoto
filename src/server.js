@@ -13,6 +13,7 @@ const ShortUniqueId = require('short-unique-id')
 const Redis = require('ioredis')
 
 const config = require('./config')
+const logger = require('./logger')
 
 const uid = new ShortUniqueId()
 const redis = new Redis(config.redis)
@@ -22,7 +23,7 @@ const app = express()
 const server = http.Server(app)
 
 process.on('uncaughtException', err => {
-  console.log(err)
+  logger.error(err)
   Raven.captureException(err)
   process.exit(1)
 })
@@ -39,19 +40,21 @@ Raven.config(process.env.SENTRY_TOKEN, ravenOptions).install()
 app.use(Raven.requestHandler())
 
 // Compresion
-app.use(compress({
-  filter: (req, res) => {
-    return /json|text|javascript|css/.test(res.getHeader('Content-Type'))
-  },
-  level: 9
-}))
+app.use(
+  compress({
+    filter: (req, res) => {
+      return /json|text|javascript|css/.test(res.getHeader('Content-Type'))
+    },
+    level: 9
+  })
+)
 
 // Logger
 app.use(morgan('combined'))
 
 // Parser de peticiones POST
 app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({extended: true}))
+app.use(bodyParser.urlencoded({ extended: true }))
 
 // Estaticos
 app.use(express.static(path.join(__dirname, '..', 'public')))
@@ -61,10 +64,13 @@ const index = (req, res) => {
   res.sendFile(path.join(__dirname, '..', 'public', 'index.html'))
 }
 const getOriginalUri = (req, res, next) => {
-  redis.get(req.params.id).then(uri => {
-    if (uri === null) return res.status(404)
-    res.redirect(uri)
-  }).catch(next)
+  redis
+    .get(req.params.id)
+    .then(uri => {
+      if (uri === null) return res.status(404)
+      res.redirect(uri)
+    })
+    .catch(next)
 }
 const setId = (id, uri) => {
   redis.set(id, uri)
@@ -82,13 +88,15 @@ const shortenUrl = body => {
   })
 }
 const shorten = (req, res, next) => {
-  shortenUrl(req.body).then(id => {
-    if (id === null) {
-      res.status(409)
-    } else {
-      res.send(`${req.headers.host}/${id}`)
-    }
-  }).catch(next)
+  shortenUrl(req.body)
+    .then(id => {
+      if (id === null) {
+        res.status(409)
+      } else {
+        res.send(`${req.headers.host}/${id}`)
+      }
+    })
+    .catch(next)
 }
 
 // Rutas
@@ -112,14 +120,14 @@ app.use((err, req, res, next) => {
       }
     })
   }
-  console.error(err)
+  logger.error(err)
   res.status(500)
 })
 app.use((req, res) => {
   res.status(404)
 })
 app.use((req, res, next) => {
-  redis.on('error', (err) => next(err))
+  redis.on('error', err => next(err))
 })
 
 module.exports = server
