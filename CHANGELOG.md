@@ -1,3 +1,9 @@
+#### 0.0.4 (2017-07-28)
+
+##### New Features
+
+* **raven:** add raven in client side. close #6 ([5e6facc5](https://github.com/lgaticaq/shortener-server/commit/5e6facc585fe5242fc01d5bc8eed578ed72271f9))
+
 #### 0.0.3 (2017-07-28)
 
 ##### Bug Fixes
