@@ -1,3 +1,12 @@
+#### 0.0.3 (2017-07-28)
+
+##### Bug Fixes
+
+* **input:** fix input type and required. fix #7 ([045eb900](https://github.com/lgaticaq/shortener-server/commit/045eb900d45607f6fcf7676bd17c00339d9c2e72))
+* **travis:**
+  * add ";" in deploy ([3acca8b5](https://github.com/lgaticaq/shortener-server/commit/3acca8b524c0c460d0212e5fd2d522e302f1c31e))
+  * only deploy in tags ([c9daed59](https://github.com/lgaticaq/shortener-server/commit/c9daed59a18f83410806034a901c8899db9c691e))
+
 #### 0.0.2 (2017-07-27)
 
 ##### New Features
