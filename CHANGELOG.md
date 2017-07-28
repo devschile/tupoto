@@ -1,3 +1,9 @@
+#### 0.0.6 (2017-07-28)
+
+##### New Features
+
+* **protocol:** add protocol in output. close #15 ([690cb85d](https://github.com/lgaticaq/shortener-server/commit/690cb85d25749275a5932f4376f0dbdf36eaf9bc))
+
 #### 0.0.5 (2017-07-28)
 
 ##### Chores
