@@ -23,7 +23,7 @@
         <h1 class="title">{{ title }}</h1>
       </header>
       <div class="box box-input">
-        <input id="input_url" type="text" />
+        <input id="input_url" type="url" required="required" />
         <label for="input_url">{{ longURL }}</label>
         <button type="button" v-on:click="postURL" class="createlink icon icon-cog"></button>
       </div>
