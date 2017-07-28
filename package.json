@@ -25,6 +25,9 @@
     "devschile"
   ],
   "author": "Leonardo Gatica <lgatica@protonmail.com> (https://about.me/lgatica)",
+  "contributors": [
+    "Jorge Epuñan <juanbrujo@gmail.com> (http://www.csslab.cl)"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/lgaticaq/shortener-server/issues"
