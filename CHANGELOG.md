@@ -1,3 +1,9 @@
+#### 0.0.7 (2017-07-28)
+
+##### Bug Fixes
+
+* **protocol:** set protocol to https ([b676e114](https://github.com/lgaticaq/shortener-server/commit/b676e114c2124806a6a52c54df30ddec968a3234))
+
 #### 0.0.6 (2017-07-28)
 
 ##### New Features
