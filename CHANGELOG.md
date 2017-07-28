@@ -1,3 +1,25 @@
+#### 0.0.5 (2017-07-28)
+
+##### Chores
+
+* **design:** mejora diseño ([a77a8518](https://github.com/lgaticaq/shortener-server/commit/a77a8518763111aad10c9be959eecb664db71cbe))
+* **docker:** add *-compose.yml to ignores ([3b9dcf3e](https://github.com/lgaticaq/shortener-server/commit/3b9dcf3e72bd5aaa01ba675db97103c167e01316))
+* **package:** add contributors ([d7e43753](https://github.com/lgaticaq/shortener-server/commit/d7e437535cff0bb2e2a68232ae19ec658c01956f))
+
+##### Documentation Changes
+
+* **badges:** add travis and docker badges ([f847ebba](https://github.com/lgaticaq/shortener-server/commit/f847ebbae1f77b6719f22c9ab90740d576da1723))
+
+##### New Features
+
+* **docker:**
+  * add rancher-compose.yml ([599c927a](https://github.com/lgaticaq/shortener-server/commit/599c927a4680a6cb3cfd51a9355dc3ebec9ccf0e))
+  * add docker-compose.yml ([8d1b3ec2](https://github.com/lgaticaq/shortener-server/commit/8d1b3ec23a1c12b046ab08c0750e928896faa738))
+
+##### Bug Fixes
+
+* **html:** removed ([91d05a7b](https://github.com/lgaticaq/shortener-server/commit/91d05a7b069861c142f89818d952d775d2783926))
+
 #### 0.0.4 (2017-07-28)
 
 ##### New Features
