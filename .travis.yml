@@ -1,0 +1,24 @@
+language: node_js
+
+node_js:
+  - "8"
+
+sudo: required
+
+services:
+  - docker
+
+install:
+  - VERSION=$(node -e "console.log(require('./package.json').version)")
+  - docker build -t "lgatica/tupoto:$VERSION" -t "lgatica/tupoto:latest" .
+
+script:
+  - docker run --rm "lgatica/tupoto:latest" node --version
+
+after_success:
+  - if ([ "$TRAVIS_BRANCH" == "master" ] || [ ! -z "$TRAVIS_TAG" ]) && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
+    docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
+    VERSION=$(node -e "console.log(require('./package.json').version)");
+    docker push lgatica/tupoto;
+    docker run --rm -it -e RANCHER_URL=$RANCHER_URL -e RANCHER_ACCESS_KEY=$RANCHER_ACCESS_KEY -e RANCHER_SECRET_KEY=$RANCHER_SECRET_KEY cdrx/rancher-gitlab-deploy upgrade --environment $RANCHER_ENVIRONMENT --stack $RANCHER_STACK --service $RANCHER_SERVICE --new-image lgatica/tupoto:$VERSION;
+    fi

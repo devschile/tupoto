@@ -5,7 +5,7 @@ const dotenv = require('dotenv')
 const dburi = require('config-dburi')
 const pkg = require('../package.json')
 
-dotenv.config({silent: true, path: path.join(__dirname, '..', '.env')})
+dotenv.config({ silent: true, path: path.join(__dirname, '..', '.env') })
 
 module.exports = {
   env: process.env.NODE_ENV || 'development',
