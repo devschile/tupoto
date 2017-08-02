@@ -1,3 +1,17 @@
+#### 0.0.8 (2017-08-02)
+
+##### Chores
+
+* **package:** update name, description and links ([c4126079](https://github.com/devschile/tupoto/commit/c412607969887c77e93cdf5375a80a3624bc6877))
+
+##### Documentation Changes
+
+* **README:** update badge links ([3d459453](https://github.com/devschile/tupoto/commit/3d45945318f3b67e662afcef23fb7f086f7795e1))
+
+##### Bug Fixes
+
+* **html:** fix github link ([49854230](https://github.com/devschile/tupoto/commit/49854230f69f8c3e17b6c2dc530c3511c1245ad1))
+
 #### 0.0.7 (2017-07-28)
 
 ##### Bug Fixes
