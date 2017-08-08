@@ -8,6 +8,28 @@
 
 > tupo.to - acortador de URL's
 
-## License
+## Desarrollo
+
+Iniciar redis con docker-compose:
+
+```bash
+# Nota es necesario tener instalado Docker y docker-compose
+docker-compose -f docker-compose.dev.yml up -d
+```
+
+Instalar dependencias de node:
+
+```bash
+# Se recomienda el uso nvm
+npm i
+```
+
+Ejecutar la aplicación en modo desarrollo:
+
+```bash
+npm run start:dev
+```
+
+## Licencia
 
 [MIT](https://tldrlegal.com/license/mit-license)
