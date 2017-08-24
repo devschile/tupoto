@@ -93,7 +93,7 @@ const shorten = (req, res, next) => {
       if (id === null) {
         res.status(409)
       } else {
-        res.send(`${req.headers.host}/${id}`)
+        res.send(`https://${req.headers.host}/${id}`)
       }
     })
     .catch(next)
