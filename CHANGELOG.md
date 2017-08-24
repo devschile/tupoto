@@ -1,3 +1,14 @@
+#### 0.0.9 (2017-08-24)
+
+##### Chores
+
+* **js:** added analytics code ([2b51448a](https://github.com/devschile/tupoto/commit/2b51448a63e6f28cc433d7ed8229f5d870d397d0))
+* **docker:** add docker-compose for dev ([1b91da97](https://github.com/devschile/tupoto/commit/1b91da9713fd07dffccdb17b114bdaa648d16623))
+
+##### Documentation Changes
+
+* **readme:** add dev instructions. close #7 ([92942ad4](https://github.com/devschile/tupoto/commit/92942ad4344a645ac9a4fe6bcc8f4e3a7687de14))
+
 #### 0.0.8 (2017-08-02)
 
 ##### Chores
