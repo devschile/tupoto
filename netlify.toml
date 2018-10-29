@@ -2,6 +2,7 @@
   command = "npm run functions:build"
   functions = "build"
   publish = "public"
+  environment = { EXPIRE = "5184000", UID_LENGTH = "4" }
 [[headers]]
   for = "/*"
   [headers.values]
