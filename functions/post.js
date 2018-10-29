@@ -1,7 +1,7 @@
 const Redis = require('ioredis')
 const ShortUniqueId = require('short-unique-id')
-const logger = require('./logger')
-const { redis, expire, uidLength } = require('./config')
+const logger = require('./utils/logger')
+const { redis, expire, uidLength } = require('./utils/config')
 
 const client = new Redis(redis)
 

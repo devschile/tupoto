@@ -1,7 +1,7 @@
 'use strict'
 
 const dburi = require('config-dburi')
-const pkg = require('../package.json')
+const pkg = require('../../package.json')
 
 module.exports = {
   redis: dburi.redis(),
