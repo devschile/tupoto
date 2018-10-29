@@ -25,7 +25,7 @@ exports.handler = async event => {
     if (id === null) {
       return { statusCode: 409 }
     } else {
-      return { statusCode: 201, body: id }
+      return { statusCode: 201, body: `https://tupo.to/${id}` }
     }
   } catch (err) {
     logger.error(err, { extra: { body: event.body } })
