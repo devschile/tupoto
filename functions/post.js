@@ -16,17 +16,19 @@ const shortenUrl = async body => {
   return id
 }
 
-exports.handler = function (event, context, callback) {
-  shortenUrl(JSON.parse(event.body))
-    .then(id => {
-      if (id === null) {
-        callback(null, { statusCode: 409 })
-      } else {
-        callback(null, { statusCode: 201, body: id })
-      }
-    })
-    .catch(err => {
-      logger.error(err, { extra: { body: event.body } })
-      callback(null, { statusCode: 400, body: err.message })
-    })
+exports.handler = async event => {
+  if (event.httpMethod !== 'POST') {
+    return { statusCode: 405, body: 'Method Not Allowed' }
+  }
+  try {
+    const id = await shortenUrl(JSON.parse(event.body))
+    if (id === null) {
+      return { statusCode: 409 }
+    } else {
+      return { statusCode: 201, body: id }
+    }
+  } catch (err) {
+    logger.error(err, { extra: { body: event.body } })
+    return { statusCode: 400, body: err.message }
+  }
 }

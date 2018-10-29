@@ -4,15 +4,16 @@ const { redis } = require('./config')
 
 const client = new Redis(redis)
 
-exports.handler = function (event, context, callback) {
-  client
-    .get(event.body)
-    .then(uri => {
-      if (uri === null) return callback(null, { statusCode: 404 })
-      callback(null, { statusCode: 200, body: uri })
-    })
-    .catch(err => {
-      logger.error(err, { extra: { body: event.body } })
-      callback(null, { statusCode: 400, body: err.message })
-    })
+exports.handler = async event => {
+  if (event.httpMethod !== 'GET') {
+    return { statusCode: 405, body: 'Method Not Allowed' }
+  }
+  try {
+    const uri = await client.get(event.queryStringParameters.id)
+    if (uri === null) return { statusCode: 404 }
+    return { statusCode: 302, headers: { 'Location': uri }, body: '' }
+  } catch (err) {
+    logger.error(err, { extra: { body: event.body } })
+    return { statusCode: 400, body: err.message }
+  }
 }
