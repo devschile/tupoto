@@ -1,4 +1,5 @@
 [build]
+  base = "/"
   command = "npm run functions:build"
   functions = "build"
   publish = "public"
