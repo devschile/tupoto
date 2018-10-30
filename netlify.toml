@@ -3,7 +3,7 @@
   command = "npm run functions:build"
   functions = "build"
   publish = "public"
-  environment = { EXPIRE = "5184000", UID_LENGTH = "4" }
+  environment = { EXPIRE = "5184000", UID_LENGTH = "4", REDIS_URI = "redis://redis:q6coolJoG0Fs3RP0lfIR6CpIqVRSlDQ3@redis-15494.c114.us-east-1-4.ec2.cloud.redislabs.com:15494/0" }
 [[headers]]
   for = "/*"
   [headers.values]
