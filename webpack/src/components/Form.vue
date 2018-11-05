@@ -2,15 +2,15 @@
 
 	<main>
 		<div class="box box-input">
-			<input id="input_url" type="url" placeholder="Copia aquí tu URL larga" />
-			<button type="button" @click="postURL" class="createlink button -position">Crear URL</button>
+			<input type="url" v-model="inputURI" placeholder="Copia aquí tu URL larga" />
+			<button class="createlink button -position" @click="postURL()">Crear URL</button>
 		</div>
 		<div class="box box-output">
-			<input id="output_url" type="text" />
-			<button type="button" @click="copyURL" class="copytext button -position">Copiar URL</button>
+			<input v-model="outputURI" type="text" />
+			<button class="copytext button -position" @click="copyURL()">Copiar URL</button>
 		</div>
 			<div class="box box-again">
-			<button type="button" @click="clearURL" class="-wide -centered button">Acortar otra URL</button>
+			<button class="-wide -centered button" @click="clearURL()">Acortar otra URL</button>
 		</div>
 	</main>
 
@@ -21,16 +21,13 @@
 export default {
 	name: 'Form',
 	data: () => ({
+		inputURI: null,
+		outputURI: null
 	}),
 	methods: {
 		postURL: function() {
-			const inputURL = document.querySelector('#input_url')
-			const outputURL = document.querySelector('#output_url')
 
-			let url = inputURL.value
-			this.currentSearch = url
-
-			if (url !== '' && checkUrl(url) && outputURL.value === '') {
+			if (this.inputURI !== '' && this.checkUrl(this.inputURI) && this.outputURI === '') {
 				this.$http.post('/.netlify/functions/post', {
 					uri: url
 				}).then(response => {
@@ -45,23 +42,20 @@ export default {
 			}
 		},
 		copyURL: function () {
-			const outputURL = document.querySelector('#output_url')
-			if (outputURL.value !== '') {
-				outputURL.select()
-				try {
-					let successful = null
-					successful = document.execCommand('copy')
-				} catch (err) {
-					// error callback
-				}
+			let successful = null
+
+			if (this.outputURI !== '') {
+				this.outputURI.select()
+				successful = document.execCommand('copy')
 			}
 		},
 		clearURL: function () {
-			const inputURL = document.querySelector('#input_url')
-			const outputURL = document.querySelector('#output_url')
-			inputURL.value = ''
-			outputURL.value = ''
-		}
+			this.inputURI = ''
+			this.outputURI = ''
+		},
+      	checkUrl: function (url) {
+        return /^(https?|ftp):\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(\#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i.test(url)
+      }
 	}
 }
 
