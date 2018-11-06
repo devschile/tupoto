@@ -5,16 +5,19 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "mock": "json-server --watch mock/db.json"
   },
   "dependencies": {
-    "sass-loader": "^7.1.0",
+    "axios": "^0.18.0",
     "vue": "^2.5.17"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.0.5",
     "@vue/cli-plugin-eslint": "^3.0.5",
     "@vue/cli-service": "^3.0.5",
+    "json-server": "^0.14.0",
+    "sass-loader": "^7.1.0",
     "vue-template-compiler": "^2.5.17"
   },
   "eslintConfig": {
@@ -37,8 +40,8 @@
     }
   },
   "browserslist": [
-    "> 1%",
-    "last 2 versions",
+    "> 5%",
+    "last 5 versions",
     "not ie <= 8"
   ]
 }
