@@ -1,17 +1,25 @@
 <template>
 
   <main>
-    <div class="box box-input" v-if="!outputURI">
-      <input type="url" v-model="inputURI" placeholder="Copia aquí tu URL larga" />
-      <button class="createlink button -position" @click="postURL()">Crear URL</button>
-    </div>
-    <div class="box box-output" v-if="outputURI">
-      <input v-model="outputURI" type="text" id="output_url" />
-      <button class="copytext button -position" @click="copyURL()">Copiar URL</button>
-    </div>
-    <div class="box box-again" v-if="outputURI">
-      <button class="-wide -centered button" @click="clearURL()">Acortar otra URL</button>
-    </div>
+    <transition name="fade" mode="out-in">
+      <div class="box box-input" v-if="!outputURI">
+        <input type="url" v-model="inputURI" :class="checkUrl() === false ? 'error' : ''" placeholder="Copia aquí tu URL larga" />
+        <button class="createlink button -position" :disabled="!inputURI" @click="postURL()">Crear URL</button>
+      </div>
+    </transition>
+    <transition name="fade" mode="out-in">
+      <div class="box box-output" v-if="outputURI">
+        <p class="originalURI">
+          URL original:
+          <pre><code>{{ inputURI }}</code></pre>
+        </p>
+        <input type="url" v-model="outputURI" class="success" id="output_url" />
+        <button class="copytext button -position" @click="copyURL()">Copiar URL</button>
+        <div class="box box-again">
+          <button class="-wide -centered button" @click="clearURL()">Acortar otra URL</button>
+        </div>
+      </div>
+    </transition>
   </main>
 
 </template>
@@ -61,18 +69,14 @@ export default {
             this.outputURI = `${window.location.protocol}//${window.location.host}${response.data}`
           }
         })
-        .catch(error => {
-          console.error(error)
-        })
       }
     },
     copyURL: function () {
-      let successful = null
+      let outputURI = document.querySelector('#output_url')
 
       if (this.outputURI !== '') {
-        const outputURL = document.querySelector('#output_url')
         outputURI.select()
-        successful = document.execCommand('copy')
+        outputURI = document.execCommand('copy')
       }
     },
     clearURL: function () {
@@ -102,6 +106,12 @@ input {
   letter-spacing: 0em;
   border: 0px;
   transition: all 0.3s cubic-bezier(.55, 0, .1, 1);
+}
+input.error {
+  outline: 2px solid red;
+}
+input.success {
+  outline: 2px solid #46ad79;
 }
 @media (max-width: 800px) {
   input {
@@ -141,7 +151,11 @@ input:focus~button {
   line-height: 20px;
   outline: 0;
 }
-.button:hover {
+.button[disabled] {
+  background: #ccc;
+  cursor: default;
+}
+.button:not([disabled]):hover {
   background-color: #46ad79;
 }
 .-position {
@@ -152,6 +166,13 @@ input:focus~button {
   transition: all 0.3s cubic-bezier(.55, 0, .1, 1);
   overflow: hidden;
 }
+.originalURI {
+  overflow-x: auto;
+}
+  .originalURI code {
+    padding: .3rem;
+    background-color: rgba(255,255,0,0.3);
+  }
 @media (max-width: 800px) {
   .-position {
     top: 100%;
@@ -159,5 +180,11 @@ input:focus~button {
 }
 .box-again {
   text-align: center;
+}
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
 }
 </style>
