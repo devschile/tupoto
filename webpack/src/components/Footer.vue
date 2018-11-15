@@ -1,7 +1,7 @@
 <template>
 
 	<footer class="box-foot">
-		<p>© 2017 - 2018 por y para
+		<p>© 2017 - {{ currentYear }} por y para
 		<a href="http://www.devschile.cl/">devsChile</a>.
 		<a href="https://github.com/devschile/tupoto/">GitHub</a>. Licencia:
 		<a href="https://opensource.org/licenses/MIT">MIT</a>.</p>
@@ -14,6 +14,7 @@
 export default {
   name: 'Footer',
   data: () => ({
+    currentYear: (new Date()).getFullYear()
   })
 }
 
