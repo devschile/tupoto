@@ -14,7 +14,7 @@ Iniciar redis con docker-compose:
 
 ```bash
 # Nota es necesario tener instalado Docker y docker-compose
-docker-compose -f docker-compose.dev.yml up -d
+docker-compose up -d
 ```
 
 Instalar dependencias de node:
@@ -24,11 +24,19 @@ Instalar dependencias de node:
 npm i
 ```
 
-Ejecutar la aplicación en modo desarrollo:
+Ejecutar la aplicación en modo desarrollo (netlify-local) en http://localhost:9000:
 
 ```bash
-npm run start:dev
+npm run server
 ```
+
+Ejecutar la aplicación en modo desarrollo (vue-cli) en http://localhost:8080:
+
+```bash
+npm run serve
+```
+
+**NOTA:** Solo ejecutar uno de los dos.
 
 ## Licencia
 

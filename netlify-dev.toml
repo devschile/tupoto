@@ -1,8 +1,8 @@
 [build]
   base = "/"
-  command = "npm run functions:build"
+  command = "npm run build"
   functions = "build"
-  publish = "public"
+  publish = "dist"
   environment = { EXPIRE = "5184000", UID_LENGTH = "4", REDIS_URI = "redis://localhost/0" }
 [[headers]]
   for = "/*"

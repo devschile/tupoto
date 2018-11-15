@@ -1,8 +1,8 @@
 <template>
 
-	<header class="box-title">
-		<h1 class="title">tupo.to | acortador de URL's</h1>
-	</header>
+  <header class="box-title">
+    <h1 class="title">tupo.to | acortador de URL's</h1>
+  </header>
 
 </template>
 

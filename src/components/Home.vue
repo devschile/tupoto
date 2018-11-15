@@ -17,7 +17,7 @@ import Footer from './Footer'
 export default {
   name: 'Home',
   data: () => ({
-      msg: 'String'
+    msg: 'String'
   }),
   components: {
     Header,

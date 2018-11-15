@@ -2,20 +2,24 @@
   "name": "tupoto",
   "version": "0.0.9",
   "description": "tupo.to - acortador de URL's",
-  "main": "src/index.js",
+  "main": "src/main.js",
   "scripts": {
-    "start": "node src/index.js",
-    "start:dev": "nodemon",
+    "serve": "vue-cli-service serve",
+    "vue:build": "vue-cli-service build",
+    "build": "npm run functions:build && npm run vue:build",
+    "lint": "eslint functions/**/*.js src/**/*.{js,vue} --fix",
+    "mock": "json-server --watch mock/db.json",
     "functions:build": "netlify-lambda build functions",
     "prefunctions:serve": "npm run functions:build",
     "functions:serve": "netlify-lambda serve functions",
-    "preserve": "npm run functions:build",
-    "serve": "netlify-local -n netlify-dev.toml serve",
-    "lint": "eslint . --fix",
+    "prenetlify-local": "npm run functions:build",
+    "netlify-local": "netlify-local -n netlify-dev.toml serve",
+    "vue:watch": "vue-cli-service build --watch --mode development",
+    "server": "run-p vue:watch netlify-local",
     "format": "prettier-standard '{src,functions}/**/*.js'"
   },
   "engines": {
-    "node": ">=8"
+    "node": ">=10"
   },
   "repository": {
     "type": "git",
@@ -30,55 +34,129 @@
     "Jorge Epuñan <juanbrujo@gmail.com> (http://www.csslab.cl)"
   ],
   "license": "MIT",
+  "private": true,
   "bugs": {
     "url": "https://github.com/devschile/tupoto/issues"
   },
   "homepage": "https://github.com/devschile/tupoto#readme",
   "dependencies": {
-    "body-parser": "1.18.3",
-    "compression": "1.7.3",
+    "axios": "0.18.0",
     "config-dburi": "1.0.0",
-    "dotenv": "6.1.0",
-    "express": "4.16.4",
     "ioredis": "4.2.0",
-    "morgan": "1.9.1",
     "raven": "2.6.4",
     "short-unique-id": "1.1.1",
+    "vue": "2.5.17",
+    "vue-raven": "1.0.0",
     "winston": "3.1.0",
-    "winston-sentry-raven-transport": "1.0.1"
+    "winston-sentry-raven-transport": "1.0.2"
   },
   "devDependencies": {
-    "eslint": "5.8.0",
+    "@commitlint/cli": "7.2.1",
+    "@commitlint/config-conventional": "7.1.2",
+    "@commitlint/prompt-cli": "7.2.1",
+    "@vue/cli-plugin-babel": "3.1.1",
+    "@vue/cli-plugin-eslint": "3.1.5",
+    "@vue/cli-service": "3.1.4",
+    "eslint": "5.9.0",
+    "eslint-config-jsdoc-strict": "1.0.0",
     "eslint-config-standard": "12.0.0",
     "eslint-plugin-import": "2.14.0",
+    "eslint-plugin-jsdoc": "3.9.1",
     "eslint-plugin-node": "8.0.0",
     "eslint-plugin-promise": "4.0.1",
+    "eslint-plugin-security": "1.4.0",
     "eslint-plugin-standard": "4.0.0",
-    "husky": "1.1.2",
-    "lint-staged": "7.3.0",
-    "netlify-lambda": "1.0.2",
+    "eslint-plugin-vue": "5.0.0-beta.4",
+    "husky": "1.1.4",
+    "json-server": "0.14.0",
+    "lint-staged": "8.0.4",
+    "netlify-lambda": "1.0.3",
     "netlify-local": "1.3.0",
-    "nodemon": "1.18.5",
-    "prettier-standard": "8.0.1"
+    "npm-run-all": "4.1.3",
+    "prettier-standard": "8.0.1",
+    "sass-loader": "7.1.0",
+    "vue-template-compiler": "2.5.17"
   },
   "eslintConfig": {
-    "extends": "standard",
+    "env": {
+      "browser": true,
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/essential",
+      "eslint:recommended",
+      "standard",
+      "jsdoc-strict",
+      "plugin:security/recommended"
+    ],
+    "plugins": [
+      "promise",
+      "security"
+    ],
     "rules": {
       "no-console": [
         "error"
-      ]
+      ],
+      "require-await": [
+        "error"
+      ],
+      "promise/always-return": "error",
+      "promise/no-return-wrap": "error",
+      "promise/param-names": "error",
+      "promise/catch-or-return": "error",
+      "promise/no-native": "off",
+      "promise/no-nesting": "warn",
+      "promise/no-promise-in-callback": "warn",
+      "promise/no-callback-in-promise": "warn",
+      "promise/no-new-statics": "error",
+      "promise/no-return-in-finally": "warn",
+      "promise/valid-params": "warn"
+    },
+    "parserOptions": {
+      "parser": "babel-eslint"
     }
   },
   "eslintIgnore": [
-    "build"
+    "build",
+    "dist",
+    "mock",
+    "public"
   ],
+  "postcss": {
+    "plugins": {
+      "autoprefixer": {}
+    }
+  },
+  "browserslist": [
+    "> 5%",
+    "last 5 versions",
+    "not ie <= 8"
+  ],
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
   "lint-staged": {
     "linters": {
-      "src/**/*.js": [
+      "{src,functions}/**/*.js": [
         "eslint --fix",
         "prettier-standard",
         "git add"
       ]
     }
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "renovate": {
+    "automerge": "minor",
+    "extends": [
+      "config:js-app",
+      "docker:disable"
+    ]
   }
 }
