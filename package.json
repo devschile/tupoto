@@ -10,7 +10,7 @@
     "prefunctions:serve": "npm run functions:build",
     "functions:serve": "netlify-lambda serve functions",
     "preserve": "npm run functions:build",
-    "serve": "netlify-local serve",
+    "serve": "netlify-local -n netlify-dev.toml serve",
     "lint": "eslint . --fix",
     "format": "prettier-standard '{src,functions}/**/*.js'"
   },
