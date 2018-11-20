@@ -11,7 +11,7 @@ exports.handler = async event => {
   try {
     const uri = await client.get(event.queryStringParameters.id)
     if (uri === null) return { statusCode: 404 }
-    return { statusCode: 302, headers: { Location: uri }, body: '' }
+    return { statusCode: 200, body: uri }
   } catch (err) {
     logger.error(err, { extra: { body: event.body } })
     return { statusCode: 400, body: err.message }
