@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRaven from 'vue-raven'
 
 import App from './App.vue'
+import router from './router/index.js'
 
 Vue.config.productionTip = false
 
@@ -12,5 +13,6 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 new Vue({
-  render: h => h(App)
+  render: h => h(App),
+  router
 }).$mount('#app')
