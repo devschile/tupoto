@@ -7,48 +7,57 @@
 </template>
 
 <script>
-
 import axios from 'axios'
 
-const environment = process.env.NODE_ENV
+const isProduction = process.env.NODE_ENV === 'production'
+
+/**
+ * Funcion para obtener URL original.
+ *
+ * @param {string} id - ID de ur corta.
+ * @returns {Promise<string>} - URL uriginal.
+ * @example
+ * const originalUrl = await getURL('aaAA')
+ */
+const getURL = id => {
+  return axios({
+    method: 'GET',
+    url: '/.netlify/functions/get',
+    params: { id }
+  }).then(response => {
+    return response.data
+  })
+}
 
 export default {
   name: 'URI',
   data: () => ({
+    post: null,
+    error: null
   }),
-  methods: {
-    postURL: function() {
-
-      let options = {
-        method: 'get',
-        uri: '/.netlify/functions/get',
-        data: {
-          uri: this.inputURI
-        }
+  // eslint-disable-next-line
+  beforeRouteEnter (to) {
+    getURL(to.params.id).then(uri => {
+      window.location.href = uri
+      return true
+    }).catch(err => {
+      // eslint-disable-next-line no-console
+      console.error(err)
+    })
+  },
+  // eslint-disable-next-line
+  beforeRouteUpdate (to) {
+    return getURL(to.params.id).then(uri => {
+      window.location.href = uri
+      return true
+    }).catch(err => {
+      if (isProduction) {
+        this.$raven.captureException(err)
+      } else {
+        // eslint-disable-next-line no-console
+        console.error(err)
       }
-
-      if (environment === 'development') {
-        options = {
-          method: 'GET',
-          uri: 'http://localhost:3000/uri',
-          data: {
-            uri: this.outputURI
-          }
-        }
-      }
-
-      axios(
-      {
-        method: options.method,
-        url: options.uri,
-        data: options.data
-      })
-      .then(response => {
-        if (response && response.status === 200) {
-          // no se que hacer aqui, redirect?
-        }
-      })
-    }
+    })
   }
 }
 
