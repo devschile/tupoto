@@ -28,7 +28,7 @@
 
 import axios from 'axios'
 
-const environment = process.env.NODE_ENV
+const isProduction = process.env.NODE_ENV === 'production'
 
 export default {
   name: 'Form',
@@ -37,8 +37,8 @@ export default {
     outputURI: ''
   }),
   methods: {
-    postURL: function() {
-
+    // eslint-disable-next-line require-jsdoc
+    postURL: function () {
       let options = {
         method: 'POST',
         uri: '/.netlify/functions/post',
@@ -47,30 +47,29 @@ export default {
         }
       }
 
-      if (environment === 'development') {
-        options = {
-          method: 'GET',
-          uri: 'http://localhost:3000/uri',
-          data: {
-            uri: this.inputURI
-          }
-        }
-      }
-
       if (this.inputURI !== '' && this.checkUrl(this.inputURI)) {
         axios(
-        {
-          method: options.method,
-          url: options.uri,
-          data: options.data
-        })
-        .then(response => {
-          if (response && response.status === 200) {
-            this.outputURI = `${window.location.protocol}//${window.location.host}${response.data}`
-          }
-        })
+          {
+            method: options.method,
+            url: options.uri,
+            data: options.data
+          })
+          .then(response => {
+            // eslint-disable-next-line promise/always-return
+            if (response && response.status === 201) {
+              this.outputURI = response.data
+            }
+          }).catch(err => {
+            if (isProduction) {
+              this.$raven.captureException(err)
+            } else {
+              // eslint-disable-next-line no-console
+              console.error(err)
+            }
+          })
       }
     },
+    // eslint-disable-next-line require-jsdoc
     copyURL: function () {
       let outputURI = document.querySelector('#output_url')
 
@@ -79,14 +78,16 @@ export default {
         outputURI = document.execCommand('copy')
       }
     },
+    // eslint-disable-next-line require-jsdoc
     clearURL: function () {
       this.inputURI = ''
       this.outputURI = ''
     },
+    // eslint-disable-next-line require-jsdoc
     checkUrl: function (url) {
       // eslint-disable-next-line
       return /^(https?|ftp):\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(\#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i.test(url)
-      }
+    }
   }
 }
 

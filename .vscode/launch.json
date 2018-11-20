@@ -1,0 +1,31 @@
+{
+    // Use IntelliSense para saber los atributos posibles.
+    // Mantenga el puntero para ver las descripciones de los existentes atributos
+    // Para más información, visite: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+          "type": "chrome",
+          "request": "launch",
+          "name": "Lanzar Chromium contra localhost (Linux)",
+          "url": "http://localhost:9000",
+          "webRoot": "${workspaceRoot}/src",
+          "runtimeExecutable": "/usr/bin/chromium",
+          "runtimeArgs": [
+            "--remote-debugging-port=9222"
+          ],
+          "sourceMaps": true
+        },
+        {
+          "type": "chrome",
+          "request": "launch",
+          "name": "Lanzar Chromium contra localhost (osx)",
+          "url": "http://localhost:9000",
+          "webRoot": "${workspaceRoot}/src",
+          "runtimeArgs": [
+            "--remote-debugging-port=9222"
+          ],
+          "sourceMaps": true
+        }
+    ]
+}

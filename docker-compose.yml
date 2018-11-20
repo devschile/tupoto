@@ -1,32 +1,10 @@
 version: '2'
 services:
-  app:
-    image: lgatica/tupoto:0.0.4
-    environment:
-      REDIS_URI: redis://redis/0
-      SENTRY_TOKEN: $SENTRY_TOKEN
-    stdin_open: true
-    tty: true
-    links:
-    - redis:redis
-    labels:
-      io.rancher.container.pull_image: always
-      io.rancher.scheduler.affinity:host_label: leonardo.host=tupoto
-  lb:
-    image: rancher/lb-service-haproxy:v0.7.5
-    ports:
-    - 80:80/tcp
-    - 443:443/tcp
-    labels:
-      io.rancher.scheduler.affinity:host_label: leonardo.host=tupoto
-      io.rancher.container.agent.role: environmentAdmin
-      io.rancher.container.create_agent: 'true'
   redis:
     image: redis:alpine
-    stdin_open: true
     volumes:
     - redis:/data
-    tty: true
-    labels:
-      io.rancher.container.pull_image: always
-      io.rancher.scheduler.affinity:host_label: leonardo.host=tupoto
+    ports:
+    - 6379:6379
+volumes:
+  redis:
