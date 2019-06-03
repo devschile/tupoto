@@ -136,7 +136,12 @@
   },
   "lint-staged": {
     "linters": {
-      "{src,functions}/**/*.js": [
+      "functions/**/*.js": [
+        "eslint --fix",
+        "prettier-standard",
+        "git add"
+      ],
+      "src/**/*.{js,vue}": [
         "eslint --fix",
         "prettier-standard",
         "git add"
