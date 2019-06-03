@@ -5,5 +5,9 @@
   },
   "javascript.validate.enable": true,
   "eslint.alwaysShowStatus": true,
-  "eslint.autoFixOnSave": true
+  "eslint.autoFixOnSave": true,
+  "eslint.validate": [
+    "javascript",
+    { "language": "vue", "autoFix": true }
+  ]
 }
