@@ -1,12 +1,12 @@
 <template>
-
   <footer class="box-foot">
-    <p>© 2017 - {{ currentYear }} por y para
-    <a href="http://www.devschile.cl/">devsChile</a>.
-    <a href="https://github.com/devschile/tupoto/">GitHub</a>. Licencia:
-    <a href="https://opensource.org/licenses/MIT">MIT</a>.</p>
+    <p>
+      © 2017 - {{ currentYear }} por y para
+      <a href="http://www.devschile.cl/">devsChile</a>.
+      <a href="https://github.com/devschile/tupoto/">GitHub</a>. Licencia:
+      <a href="https://opensource.org/licenses/MIT">MIT</a>.
+    </p>
   </footer>
-
 </template>
 
 <script>

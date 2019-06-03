@@ -1,27 +1,63 @@
 <template>
-
   <main>
-    <transition name="fade" mode="out-in">
-      <div class="box box-input" v-if="!outputURI">
-        <input type="url" v-model="inputURI" :class="checkUrl() === false ? 'error' : ''" placeholder="Copia aquí tu URL larga" />
-        <button class="createlink button -position" :disabled="!inputURI" @click="postURL()">Crear URL</button>
+    <transition
+      name="fade"
+      mode="out-in"
+    >
+      <div
+        v-if="!outputURI"
+        class="box box-input"
+      >
+        <input
+          v-model="inputURI"
+          type="url"
+          :class="checkUrl() === false ? 'error' : ''"
+          placeholder="Copia aquí tu URL larga"
+        >
+        <button
+          class="createlink button -position"
+          :disabled="!inputURI"
+          @click="postURL()"
+        >
+          Crear URL
+        </button>
       </div>
     </transition>
-    <transition name="fade" mode="out-in">
-      <div class="box box-output" v-if="outputURI">
+    <transition
+      name="fade"
+      mode="out-in"
+    >
+      <div
+        v-if="outputURI"
+        class="box box-output"
+      >
         <p class="originalURI">
           URL original:
           <pre><code>{{ inputURI }}</code></pre>
         </p>
-        <input type="url" v-model="outputURI" class="success" id="output_url" />
-        <button class="copytext button -position" @click="copyURL()">Copiar URL</button>
+        <input
+          id="output_url"
+          v-model="outputURI"
+          type="url"
+          class="success"
+        >
+        <button
+          class="copytext button -position"
+          @click="copyURL()"
+        >
+          Copiar URL
+        </button>
         <div class="box box-again">
-          <button class="-wide -centered button" @click="clearURL()">Acortar otra URL</button>
+          <button
+            class="-wide -centered button"
+            @click="clearURL()"
+          >
+            Acortar otra URL
+          </button>
         </div>
       </div>
     </transition>
   </main>
-
 </template>
 
 <script>

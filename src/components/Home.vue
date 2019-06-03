@@ -1,11 +1,9 @@
 <template>
-
   <section class="wrapper -center">
-    <Header></Header>
-    <Form></Form>
-    <Footer></Footer>
+    <Header />
+    <Form />
+    <Footer />
   </section>
-
 </template>
 
 <script>
@@ -16,14 +14,14 @@ import Footer from './Footer'
 
 export default {
   name: 'Home',
-  data: () => ({
-    msg: 'String'
-  }),
   components: {
     Header,
     Form,
     Footer
-  }
+  },
+  data: () => ({
+    msg: 'String'
+  })
 }
 
 </script>

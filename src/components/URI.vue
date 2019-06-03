@@ -1,9 +1,7 @@
 <template>
-
   <section class="wrapper">
     URI
   </section>
-
 </template>
 
 <script>
@@ -35,7 +33,7 @@ export default {
     post: null,
     error: null
   }),
-  // eslint-disable-next-line
+  // eslint-disable-next-line require-jsdoc
   beforeRouteEnter (to) {
     getURL(to.params.id).then(uri => {
       window.location.href = uri
@@ -45,7 +43,7 @@ export default {
       console.error(err)
     })
   },
-  // eslint-disable-next-line
+  // eslint-disable-next-line require-jsdoc
   beforeRouteUpdate (to) {
     return getURL(to.params.id).then(uri => {
       window.location.href = uri
