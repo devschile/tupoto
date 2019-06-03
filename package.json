@@ -149,9 +149,13 @@
         "prettier-standard",
         "git add"
       ],
-      "src/**/*.{js,vue}": [
+      "src/**/*.js": [
         "eslint --fix",
         "prettier-standard",
+        "git add"
+      ],
+      "src/**/*.vue": [
+        "eslint --fix",
         "git add"
       ]
     }

@@ -63,7 +63,7 @@
 <script>
 
 import axios from 'axios'
-import isUrl from 'validator/lib/isUrl'
+import isURL from 'validator/lib/isURL'
 
 const isProduction = process.env.NODE_ENV === 'production'
 
@@ -122,7 +122,7 @@ export default {
     },
     // eslint-disable-next-line require-jsdoc
     checkUrl: function (url) {
-      return isUrl(url)
+      return isURL(url)
     }
   }
 }
