@@ -1,3 +1,33 @@
+# [0.1.0](https://github.com/devschile/tupoto/compare/v0.0.9...v0.1.0) (2019-06-03)
+
+
+### Bug Fixes
+
+* **deps:** add validator ([42a1c78](https://github.com/devschile/tupoto/commit/42a1c78))
+* **deps:** update all dependencies ([e9e2c96](https://github.com/devschile/tupoto/commit/e9e2c96))
+* **deps:** update dependencies ([bbba5d2](https://github.com/devschile/tupoto/commit/bbba5d2))
+* **deps:** update dependencies ([f7eb334](https://github.com/devschile/tupoto/commit/f7eb334))
+* **deps:** update vue ([96ad872](https://github.com/devschile/tupoto/commit/96ad872))
+* **footer:** replace 2018 with currentYear ([807e2c1](https://github.com/devschile/tupoto/commit/807e2c1))
+* **functions:** add domain in create response ([686ba64](https://github.com/devschile/tupoto/commit/686ba64))
+* **functions:** change response status ([ffda681](https://github.com/devschile/tupoto/commit/ffda681))
+* **functions:** fix call package.json ([a0b854e](https://github.com/devschile/tupoto/commit/a0b854e))
+* **functions:** fix logger ([f7b0425](https://github.com/devschile/tupoto/commit/f7b0425))
+* **post:** set hostname from event ([d59d2c7](https://github.com/devschile/tupoto/commit/d59d2c7))
+* **raven:** add dsn ([7093f28](https://github.com/devschile/tupoto/commit/7093f28))
+* **redirect:** fix get and redirect url ([aae8a87](https://github.com/devschile/tupoto/commit/aae8a87))
+* **router:** enable router ([6c4288a](https://github.com/devschile/tupoto/commit/6c4288a))
+* **router:** set history mode ([d6ff96f](https://github.com/devschile/tupoto/commit/d6ff96f))
+* **validator:** replace custom url validator to isUrl ([2f48bce](https://github.com/devschile/tupoto/commit/2f48bce))
+
+
+### Features
+
+* **functions:** move to async/await and change statusCode in redirect ([9bdb183](https://github.com/devschile/tupoto/commit/9bdb183))
+* **netlify:** add functions ([2750b6c](https://github.com/devschile/tupoto/commit/2750b6c))
+* **node:** update to node v12.3.1 ([54038dc](https://github.com/devschile/tupoto/commit/54038dc))
+* **vue:** add vue-router ([88958ec](https://github.com/devschile/tupoto/commit/88958ec))
+
 #### 0.0.9 (2017-08-24)
 
 ##### Chores
@@ -121,4 +151,3 @@
 ##### Other Changes
 
 * **config:** fix format ([4f9b286d](https://github.com/lgaticaq/shortener-server/commit/4f9b286d815656fbf95fc26f7902e6957f88e1fd))
-
