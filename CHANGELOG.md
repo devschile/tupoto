@@ -1,3 +1,10 @@
+## [0.1.1](https://github.com/devschile/tupoto/compare/v0.1.0...v0.1.1) (2019-06-03)
+
+
+### Bug Fixes
+
+* **form:** fix import isURL ([951f4bf](https://github.com/devschile/tupoto/commit/951f4bf))
+
 # [0.1.0](https://github.com/devschile/tupoto/compare/v0.0.9...v0.1.0) (2019-06-03)
 
 
