@@ -7,21 +7,16 @@
 </template>
 
 <script>
-
 export default {
   name: 'Header',
-  data: () => ({
-  })
+  data: () => ({})
 }
-
 </script>
 
 <style scoped>
-
 .title {
   font-family: 'Comfortaa', cursive;
   text-align: center;
   font-size: 2em;
 }
-
 </style>

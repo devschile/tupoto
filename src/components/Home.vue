@@ -7,7 +7,6 @@
 </template>
 
 <script>
-
 import Header from './Header'
 import Form from './Form'
 import Footer from './Footer'
@@ -23,11 +22,9 @@ export default {
     msg: 'String'
   })
 }
-
 </script>
 
 <style>
-
 [v-cloak] {
   display: none;
 }
@@ -40,8 +37,14 @@ input {
 }
 body {
   height: 100vh;
-  background: #24C6DC;
-  background: linear-gradient(to top, white, rgba(255, 255, 255, 0.2) 48%, transparent 100%), linear-gradient(to left, #eee, #ccc);
+  background: #24c6dc;
+  background: linear-gradient(
+      to top,
+      white,
+      rgba(255, 255, 255, 0.2) 48%,
+      transparent 100%
+    ),
+    linear-gradient(to left, #eee, #ccc);
 }
 .wrapper {
   width: 650px;
@@ -61,5 +64,4 @@ body {
 a {
   color: #46ad79;
 }
-
 </style>

@@ -32,8 +32,7 @@
         class="box box-output"
       >
         <p class="originalURI">
-          URL original:
-          <pre><code>{{ inputURI }}</code></pre>
+          URL original: <pre><code>{{ inputURI }}</code></pre>
         </p>
         <input
           id="output_url"

@@ -10,23 +10,19 @@
 </template>
 
 <script>
-
 export default {
   name: 'Footer',
   data: () => ({
-    currentYear: (new Date()).getFullYear()
+    currentYear: new Date().getFullYear()
   })
 }
-
 </script>
 
 <style scoped>
-
 .box-foot p {
   margin-top: 40px;
   text-align: center;
   font-size: 14px;
   color: #666;
 }
-
 </style>
