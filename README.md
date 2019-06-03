@@ -1,10 +1,9 @@
 # tupoto
 
-[![dockeri.co](http://dockeri.co/image/lgatica/tupoto)](https://hub.docker.com/r/lgatica/tupoto/)
-
+[![Netlify Status](https://api.netlify.com/api/v1/badges/3509617b-6f8a-4aad-9f25-97e940b8b5f0/deploy-status)](https://app.netlify.com/sites/tupoto/deploys)
 [![Build Status](https://travis-ci.org/devschile/tupoto.svg?branch=master)](https://travis-ci.org/devschile/tupoto)
-[![dependency Status](https://img.shields.io/david/devschile/tupoto.svg?style=flat-square)](https://david-dm.org/devschile/tupoto#info=dependencies)
-[![devDependency Status](https://img.shields.io/david/dev/devschile/tupoto.svg?style=flat-square)](https://david-dm.org/devschile/tupoto#info=devDependencies)
+[![dependency Status](https://img.shields.io/david/devschile/tupoto.svg)](https://david-dm.org/devschile/tupoto#info=dependencies)
+[![devDependency Status](https://img.shields.io/david/dev/devschile/tupoto.svg)](https://david-dm.org/devschile/tupoto#info=devDependencies)
 
 > tupo.to - acortador de URL's
 
