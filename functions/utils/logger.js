@@ -1,9 +1,12 @@
 'use strict'
 
 const { createLogger, transports } = require('winston')
-const Sentry = require('winston-sentry-raven-transport')
+const SentryTransport = require('winston-sentry-node')
 const { sentry } = require('./config')
 
-module.exports = createLogger({
-  transports: [new transports.Console({ timestamp: true }), new Sentry(sentry)]
-})
+const customTransports = [new transports.Console({ timestamp: true })]
+if (process.env.SENTRY_DSN) {
+  customTransports.push(new SentryTransport({ sentry }))
+}
+
+module.exports = createLogger({ transports: customTransports })

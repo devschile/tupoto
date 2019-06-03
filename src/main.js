@@ -1,5 +1,6 @@
 import Vue from 'vue'
-import VueRaven from 'vue-raven'
+import * as Sentry from '@sentry/browser'
+import * as Integrations from '@sentry/integrations'
 
 import App from './App.vue'
 import router from './router/index.js'
@@ -7,8 +8,9 @@ import router from './router/index.js'
 Vue.config.productionTip = false
 
 if (process.env.NODE_ENV === 'production') {
-  Vue.use(VueRaven, {
-    dsn: 'https://7f31a740e7ec460cbdd1c9fdf2595be0@sentry.io/1323839'
+  Sentry.init({
+    dsn: process.env.SENTRY_DSN_PUBLIC,
+    integrations: [new Integrations.Vue({ Vue, attachProps: true })]
   })
 }
 
