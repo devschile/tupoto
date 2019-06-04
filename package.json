@@ -1,6 +1,6 @@
 {
   "name": "tupoto",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "tupo.to - acortador de URL's",
   "main": "src/main.js",
   "scripts": {

@@ -1,3 +1,10 @@
+## [0.1.2](https://github.com/devschile/tupoto/compare/v0.1.1...v0.1.2) (2019-06-04)
+
+
+### Bug Fixes
+
+* **form:** fix checkUrl ([4cfde12](https://github.com/devschile/tupoto/commit/4cfde12))
+
 ## [0.1.1](https://github.com/devschile/tupoto/compare/v0.1.0...v0.1.1) (2019-06-03)
 
 
