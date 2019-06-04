@@ -121,7 +121,7 @@ export default {
     },
     // eslint-disable-next-line require-jsdoc
     checkUrl: function (url) {
-      return isURL(url)
+      return isURL(url || '')
     }
   }
 }
