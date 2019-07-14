@@ -18,9 +18,7 @@ export default {
     Form,
     Footer
   },
-  data: () => ({
-    msg: 'String'
-  })
+  data: () => ({})
 }
 </script>
 
@@ -37,7 +35,7 @@ input {
 }
 body {
   height: 100vh;
-  background: #24c6dc;
+  background: rgba(255, 255, 255, 0.2);
   background: linear-gradient(
       to top,
       white,
@@ -51,6 +49,9 @@ body {
   margin: 0 auto;
 }
 @media (max-width: 800px) {
+  body {
+    background: #ddd;
+  }
   .wrapper {
     width: 90%;
   }

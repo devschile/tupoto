@@ -25,27 +25,26 @@
     </transition>
     <transition
       name="fade"
-      mode="out-in"
+      mode="in-out"
     >
-      <div
-        v-if="outputURI"
-        class="box box-output"
-      >
+      <div v-if="outputURI">
         <p class="originalURI">
           URL original: <pre><code>{{ inputURI }}</code></pre>
         </p>
-        <input
-          id="output_url"
-          v-model="outputURI"
-          type="url"
-          class="success"
-        >
-        <button
-          class="copytext button -position"
-          @click="copyURL()"
-        >
-          Copiar URL
-        </button>
+        <div class="box box-output">
+          <input
+            id="output_url"
+            v-model="outputURI"
+            type="url"
+            class="success"
+          >
+          <button
+            class="copytext button -position"
+            @click="copyURL()"
+          >
+            Copiar URL
+          </button>
+        </div>
         <div class="box box-again">
           <button
             class="-wide -centered button"
@@ -83,6 +82,14 @@ export default {
         }
       }
 
+      if (process.env.NODE_ENV === 'development') {
+        options = {
+          method: 'GET',
+          uri: '/',
+          data: {}
+        }
+      }
+
       if (this.inputURI !== '' && this.checkUrl(this.inputURI)) {
         axios(
           {
@@ -92,7 +99,7 @@ export default {
           })
           .then(response => {
             // eslint-disable-next-line promise/always-return
-            if (response && response.status === 201) {
+            if (response) {
               this.outputURI = response.data
             }
           }).catch(err => {
@@ -151,7 +158,8 @@ input.success {
 }
 @media (max-width: 800px) {
   input {
-    width: 80%;
+    width: 92%;
+    padding-right: 0;
   }
 }
 input:focus {
@@ -162,7 +170,7 @@ input:focus~button {
 }
 @media (max-width: 800px) {
   input:focus~button {
-    right: 0;
+    right: 42%;
   }
 }
 ::selection {
@@ -211,16 +219,24 @@ input:focus~button {
   }
 @media (max-width: 800px) {
   .-position {
-    top: 100%;
+    top: 110%;
+    right: 42%;
   }
 }
 .box-again {
   text-align: center;
 }
-.fade-enter-active, .fade-leave-active {
+@media (max-width: 800px) {
+  .box-again {
+    margin-top: 60px;
+  }
+}
+.fade-enter-active,
+.fade-leave-active {
   transition: opacity .5s;
 }
-.fade-enter, .fade-leave-to {
+.fade-enter,
+.fade-leave-to {
   opacity: 0;
 }
 </style>
