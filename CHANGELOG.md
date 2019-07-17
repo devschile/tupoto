@@ -1,3 +1,10 @@
+## [0.1.3](https://github.com/devschile/tupoto/compare/v0.1.2...v0.1.3) (2019-07-17)
+
+
+### Bug Fixes
+
+* **deps:** update dependencies ([109da20](https://github.com/devschile/tupoto/commit/109da20))
+
 ## [0.1.2](https://github.com/devschile/tupoto/compare/v0.1.1...v0.1.2) (2019-06-04)
 
 
